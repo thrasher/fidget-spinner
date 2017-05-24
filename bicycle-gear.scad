@@ -49,25 +49,28 @@ module layout(teeth=2) {
 	}
 }
 
-
-difference() {
-	layout(N_LINKS) tooth();
-	translate([0,0,-1])
-	difference() {
-		cylinder(r=rad(N_LINKS) + ROLLER_PITCH, h=2);
-		cylinder(r=rad(N_LINKS) + ROLLER_PITCH*.35, h=2);
+module gear() {
+	translate([0, 0, -ROLLER_WIDTH/2]) {
+		difference() {
+			layout(N_LINKS) tooth();
+			translate([0,0,-1])
+			difference() {
+				cylinder(r=rad(N_LINKS) + ROLLER_PITCH, h=2);
+				cylinder(r=rad(N_LINKS) + ROLLER_PITCH*.35, h=2);
+			}
+		}
+		difference() {
+			len = sqrt(pow(rad(N_LINKS), 2) - pow((ROLLER_PITCH/2), 2) );
+			cylinder(r=len, h=ROLLER_WIDTH);
+			translate([0,0,-1]) {
+				layout(N_LINKS) roller();
+				cylinder(d=BEARING_DIA, h=2);
+			}
+		}
 	}
 }
-difference() {
-	len = sqrt(pow(rad(N_LINKS), 2) - pow((ROLLER_PITCH/2), 2) );
-	cylinder(r=len, h=ROLLER_WIDTH);
-	translate([0,0,-1]) {
-		layout(N_LINKS) roller();
-		cylinder(d=BEARING_DIA, h=2);
-	}
-}
 
-
+gear();
 
 
 
