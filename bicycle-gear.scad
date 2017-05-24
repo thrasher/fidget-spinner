@@ -1,5 +1,5 @@
 // bicycle gear
-// 
+//
 // functions to layout a bicycle gear for a roller chain with, given an arbitrary number of teeth
 // see: http://www.gizmology.net/sprockets.htm
 
@@ -18,53 +18,53 @@ BEARING_DIA = 1/2; // hole for bearing
 function rad(n=2) = 1 / (4 * sin(180 / n));
 
 module tooth() {
-    intersection() {
-        cylinder(r=ROLLER_PITCH-.5*ROLLER_DIA, h=ROLLER_WIDTH);
-        translate([ROLLER_PITCH, 0, 0])
-        cylinder(r=ROLLER_PITCH-.5*ROLLER_DIA, h=ROLLER_WIDTH);
-    }
+	intersection() {
+		cylinder(r=ROLLER_PITCH-.5*ROLLER_DIA, h=ROLLER_WIDTH);
+		translate([ROLLER_PITCH, 0, 0])
+		cylinder(r=ROLLER_PITCH-.5*ROLLER_DIA, h=ROLLER_WIDTH);
+	}
 }
 
 module roller() {
-    cylinder(d=ROLLER_DIA, h=2);
-    translate([ROLLER_PITCH, 0, 0])
-    cylinder(d=ROLLER_DIA, h=2);
+	cylinder(d=ROLLER_DIA, h=2);
+	translate([ROLLER_PITCH, 0, 0])
+	cylinder(d=ROLLER_DIA, h=2);
 }
 
- 
+
 // layout(teeth){child object}
 // produces a radial array of child objects rotated around the local z axis
 // teeth = number of teeth (practical minimum is 4, because of bicycle chain inner/outer linking)
 module layout(teeth=2) {
-    // radius of gear circle
-    rad = rad(teeth);
-    // find link angle
-    ang = asin(pow((rad*rad - .25*ROLLER_PITCH*ROLLER_PITCH),1/2)/rad);
-    for (k=[1:teeth]) {
-        rotate([0,0, k * 360 / teeth ])
-        translate([0,rad,0])
-        rotate([0,0,ang-90])
-//        if (k < 2)
-        children();
-    }
+	// radius of gear circle
+	rad = rad(teeth);
+	// find link angle
+	ang = asin(pow((rad*rad - .25*ROLLER_PITCH*ROLLER_PITCH),1/2)/rad);
+	for (k=[1:teeth]) {
+		rotate([0,0, k * 360 / teeth ])
+		translate([0,rad,0])
+		rotate([0,0,ang-90])
+		//        if (k < 2)
+		children();
+	}
 }
 
 
 difference() {
-    layout(N_LINKS) tooth();
-    translate([0,0,-1]) 
-    difference() {
-        cylinder(r=rad(N_LINKS) + ROLLER_PITCH, h=2);
-        cylinder(r=rad(N_LINKS) + ROLLER_PITCH*.35, h=2);
-    }
+	layout(N_LINKS) tooth();
+	translate([0,0,-1])
+	difference() {
+		cylinder(r=rad(N_LINKS) + ROLLER_PITCH, h=2);
+		cylinder(r=rad(N_LINKS) + ROLLER_PITCH*.35, h=2);
+	}
 }
 difference() {
-    len = sqrt(pow(rad(N_LINKS), 2) - pow((ROLLER_PITCH/2), 2) );
-    cylinder(r=len, h=ROLLER_WIDTH);
-    translate([0,0,-1]) {
-        layout(N_LINKS) roller();
-        cylinder(d=BEARING_DIA, h=2);
-    }
+	len = sqrt(pow(rad(N_LINKS), 2) - pow((ROLLER_PITCH/2), 2) );
+	cylinder(r=len, h=ROLLER_WIDTH);
+	translate([0,0,-1]) {
+		layout(N_LINKS) roller();
+		cylinder(d=BEARING_DIA, h=2);
+	}
 }
 
 
