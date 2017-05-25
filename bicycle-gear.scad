@@ -12,7 +12,7 @@ N_LINKS = 16;
 ROLLER_DIA = 5/16;
 ROLLER_PITCH = 1/2;
 ROLLER_WIDTH = 3/32; // http://www.velonews.com/2016/01/bikes-and-tech/technical-faq/tech-faq-chain-width-explained-compatibility-queries-answered_392163
-BEARING_DIA = 1.0; // hole for bearing
+BEARING_DIA = 1.05; // hole for bearing
 BEARING_WID = .25; // width of the bearing
 
 // given the number of links, calculate the radius of a gear circle
@@ -73,7 +73,7 @@ module gear() {
 difference() {
 	union() {
 		gear();
-		cylinder(r=rad(N_LINKS)-.25, h=BEARING_WID, center=true);
+		cylinder(r=rad(N_LINKS)-.2, h=BEARING_WID, center=true);
 	}
 	cylinder(d=BEARING_DIA, h=2, center=true);
 }
