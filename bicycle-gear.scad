@@ -8,11 +8,11 @@ $fa = 5; // degrees per facet in cylinder
 $fn = 100;
 
 PI = 3.14159;
-N_LINKS = 16;
+N_LINKS = 22;
 ROLLER_DIA = 5/16;
 ROLLER_PITCH = 1/2;
-ROLLER_WIDTH = 3/32; // http://www.velonews.com/2016/01/bikes-and-tech/technical-faq/tech-faq-chain-width-explained-compatibility-queries-answered_392163
-BEARING_DIA = 1.05; // hole for bearing
+ROLLER_WIDTH = 2/32; // http://www.velonews.com/2016/01/bikes-and-tech/technical-faq/tech-faq-chain-width-explained-compatibility-queries-answered_392163
+BEARING_DIA = .8665 + 0.05; // hole for bearing
 BEARING_WID = .25; // width of the bearing
 
 // given the number of links, calculate the radius of a gear circle
